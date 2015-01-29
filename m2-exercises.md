@@ -85,81 +85,61 @@ The problem is: how to retrieve those oocihm numbers. The answer is, 'we write a
 
 I've put a copy [in the module 2 repository, to save you the trouble.](https://github.com/hist3907b-winter2015/module2-findingdata/blob/master/api-ex-mac.sh)
 
-### Mac instructions:
+### Instructions:
 
-First question: do you have wget installed on your computer? If you don't, you'll need it for this exercise and the next one (if you look in the program 'api-ex-mac.sh', you'll see that the final line of the program asks wget to go get the results you've scraped from Canadiana). Installing wget is quite straightforward - follow [the Programming Historian's instructions](http://programminghistorian.org/lessons/automated-downloading-with-wget).
+In this section we will be using something called a _Virtual Machine(VM)._ A VM is in a nutshell a Computer inside a computer. We will be using a VM to create a Linux computer to use Wget and the BASH commands in this excersise.
 
-Our program requires a helper program that reads the .json data - It's called JQ. You can install this by using HOMEBREW. But to install homebrew, visit [http://brew.sh](http://brew.sh) and follow instructions. Then, to install jq, type `brew install jq` from your terminal.
+####First
 
-Now, download api-ex-mac.sh from the repository and save it to your desktop. Open your terminal program (which you can find under 'applications' and then 'utilities'.) Navigate to your desktop:
+We need to install [VirtualBox.](https://www.virtualbox.org/) It's avalible in a variety of flavors for PC MAC and Linux. Download it [here](https://www.virtualbox.org/wiki/Downloads)
 
-`cd desktop`
+We have a computer now that we can run in our computer, but we are missing an operating system for it. For this tutorial we will be using [Ubuntu.](http://www.ubuntu.com/) Ubuntu is one of the most popular versions of linux and it is easy to use and ver versitile. Download the 32 bit version [here.](http://www.ubuntu.com/download/desktop/) It is free simply set donation to zero.
 
-then tell your computer that this 'api-ex-mac.sh' program is one that you want to run:
+####Set Up
 
-`sudo chmod 700 file.sh`
+Next we need to setup VirtualBox with a new virtual machine. The following is a simple step by step guide for setting up a new virtualmachine. Follow it [here.](http://www.psychocats.net/ubuntu/virtualbox)
 
-And then you can run it by typing:
+####Working with Linux
 
-`./api-ex-mac.sh`  but *don't* do that yet! You'll need to change the search parameters to reflect your own interests. Do you see how you can do that? Open the program in a text editor, make the relevant change, save with a new name, and then run the new command. Move your results into a sensible location on your computer. Make a new entry (or entries) into your research notebook about this process, what worked, what hasn't, what you've found, where things are, and so on. You might want to upload your script (your .sh file) to your repository. Remember: the goal is so that you can come back to all this in a month's time and figure out _exactly what you did_ to collect your data. 
+After you finish the above tutorial you can start up your Virtual Machine. Double click on it and it will start in a new window. You will be placed in the ubuntu desktop. On the surface it behaves like any Mac or PC, but what makes it powerful is the terminal. Locate the terminal on the left sidebar, and open it. 
 
-### Windows7&8 instructions:
-Begin by making a folder for this exercise on your desktop.
+Now you have a new terminal window, lets go over some basic commands...
 
-1. You'll need *gitbash* (which comes with git; I know you already have github on your desktop, which has _git shell_ but that's not what we want. Download [git](http://git-scm.com/download/win) and install it, and that will give you the git bash utility, and will not mess with your github set up. 'Bash' is  "a shell that runs commands once you type the name of a command and press <enter> on your keyboard." You can see screenshots and find help on all this [here](http://openhatch.org/missions/windows-setup/open-git-bash-prompt). You will be running our scraper program from within this shell.
-2. You'll need jq [download here](http://stedolan.github.io/jq/download/). You're going to put this in the folder you've made for this exercise.
-3. You'll need CoreUtils [from here](http://gnuwin32.sourceforge.net/downlinks/coreutils.php). Download and install this.
-4. You need to tell your computer that CoreUtils now exists on your machine. Go to your computer's control panel. On 'my computer' (or whatever Windows calls it these days) right click and select 'properties'. Then select 'advanced'.
-5. Click on the 'environment variables' button.
-6. In the pop-up box that opens, there is a box marked 'system variables'. Highlight the one called 'Path'. Click on 'Edit'.
-7. In the variable box that you can now edit, there should already be many things. Scroll to the very end of that (to the right) and add:
++ *man*    This is the "manual" command, simply put man infront of a command and it will open a manual on that command. _:man [COMMAND]_ 
++ *ls*     This is the "list" command, when ls is entered it will retun all folders at the level _:ls_
++ *cd*     This is the "change directory" command, it allows you to navigate folders or step back. _:cd [Folder/Path]_  To go up one folder _:cd .._
 
-`;C:\Program Files (x86)\GnuWin32\bin`
+With these you can navigate using the terminal, a reminder that ubuntu still has a visual folder veiwer if you ever want to double check the folder.
 
-+nb: make sure there's a space between files and (x86).
+To run our script we need two non standard applications. We need curl and jq. To install we need to run a few commands in the terminal.
 
-...so yes, start that with a semicolon- and what you are putting in is the exact location of where the coreutils package of programs is located.
+*CURL*
+```
+    sudo apt-get update
+    sudo apt-get install curl
+```
+*JQ*
+```
+    sudo apt-get update
+    sudo apt-get install jq
+```
 
-Finally, you'll need wget installed on your machine. Get it [here](http://users.ugent.be/~bpuype/wget/) and download it to C:Windows directory.
+Now we have everything to run our scripts.
 
-Now:  
-- download api-ex-pc.sh from our [repository](https://github.com/hist3907b-winter2015/module2-findingdata/blob/master/api-ex-pc.sh)
-- open *git bash* - it'll be available via your programs menu. You do not want 'Git Gui' nor 'GitHub' nor 'Git Shell'. *Git bash*. 
-- inside git bash, you change directory so that you are working within the folder you made on your desktop. The command to change directory is `cd`  ie `cd course-notes` would go one level down into a folder called 'course notes'. To go one level up, you'd type `cd ..` <- ie, two periods. More help on finding your way around this interface is [here](http://programminghistorian.org/lessons/intro-to-bash)
-- Once you're in the right folder, all you have to do is type the name of our programme: `api-ex-pc.sh` and your program will query the Canadiana API, save the results, and then use wget to retrieve the full text of each result by asking the API for those results in turn. *But don't do that yet!* 
+####The Scripts
+- download api-ex-mac.sh from our [repository](https://github.com/hist3907b-winter2015/module2-findingdata/blob/master/api-ex-pc.sh)
+- open the terminal
+- inside terminal, you change directory so that you are working within the folder you made on your desktop. The command to change directory is `cd`  ie `cd course-notes` would go one level down into a folder called 'course notes'. To go one level up, you'd type `cd ..` <- ie, two periods. More help on finding your way around this interface is [here](http://ss64.com/bash/)
+- Once you're in the right folder, all you have to do is type `./api-ex-mac.sh` and your program will query the Canadiana API, save the results, and then use wget to retrieve the full text of each result by asking the API for those results in turn. *But don't do that yet!*
+- To shut down the script if it gets out of hand press `ctrl+c` 
 
-You'll need to change the search parameters to reflect your own interests. Do you see how you can do that? Open the program in a text editor, make the relevant change, save with a new name (make sure to keep the same file extenion, `.sh` - in notepad, change the save as file type to `all files` and then write the new name, e.g, `api-ex-pc-2.sh`, and then run your program by typing its name at the prompt in the git bash window. When it's finished, move your results into a sensible location on your computer. Make a new entry (or entries) into your research notebook about this process, what worked, what hasn't, what you've found, where things are, and so on. You might want to upload your script (your .sh file) to your repository. Remember: the goal is so that you can come back to all this in a month's time and figure out _exactly what you did_ to collect your data. 
+You'll need to change the search parameters to reflect your own interests. Do you see how you can do that? Open the program in a text editor, make the relevant change, save with a new name (make sure to keep the same file extenion, `.sh` - in notepad, change the save as file type to `all files` and then write the new name, e.g, `api-ex-mac-2.sh`, and then run your program by typing its name at the prompt in the terminal window. When it's finished, move your results into a sensible location on your computer. Make a new entry (or entries) into your research notebook about this process, what worked, what hasn't, what you've found, where things are, and so on. You might want to upload your script (your .sh file) to your repository. Remember: the goal is so that you can come back to all this in a month's time and figure out _exactly what you did_ to collect your data. 
 
-###An alternative Windows installation
-
-This can also work for Windows 7 *if* you've got powershell 3 installed. Win7 comes with an earlier version, so you'd have to update it, [which isn't straightforward](https://technet.microsoft.com/en-us/library/hh847837.aspx). I'm grateful to [Denis Gladkikh for his blog post on the matter](http://outcoldman.com/en/archive/2014/07/20/scoop/)._
-
-1. Make a folder somewhere handy for this exercise. Download the `api-ex-pc.sh` program into it, as well as [jq](http://stedolan.github.io/jq/download/)
-2. Find, and run, 'Powershell'
-3. At the prompt, type in these commands in sequence:
-
-`set-executionpolicy unrestricted -s cu`
-
-Say 'yes' at the prompt that asks if you really want to do this.
-
-`iex (new-object net.webclient).downloadstring('https://get.scoop.sh')`
-
-`scoop install 7zip coreutils curl git grep openssh sed wget vim grep`
-
-A number of components will download and get configured to work from within powershell. When they finish, at the command prompt, you can run your program like so:
-
-`./api-ex-pc.sh`
-
-If all goes well A new window will pop open, and you'll be downloading material from Canadiana! You can close that window where the downloading is happening to stop the process. If you open your program, you can adjust it to search for your own requests [see this discussion for hints on how to do this](https://github.com/hist3907b-winter2015/module2-findingdata/issues/2)
-
-#### You've got a pretty powerful tool now for grabbing data from one of the largest portals for Canadian history!
-Just remember to move your results from your folder before running a new search.
+There is a way of editing your document in the terminal _hint: try nano +nameofdocument_
 
 # Wget
 
 Finally, we can use wget to retrieve data in cases where there is no API. If you look carefully at the program in exercise 3, you'll see we used the wget command. In this exercise, we search for a collection in the internet archive, grab all of the file identifiers, and feed these into wget _from the command line or terminal_. One command, thousands of documents!
-
-(If you skipped the previous exercise, you need to install wget. Go to [the programming historian tutorial on wget](http://programminghistorian.org/lessons/automated-downloading-with-wget) and follow the relevant instructions (depending on your operating system) to install it.)
 
 This section will follow [Milligan p52-64](https://ianmilli.files.wordpress.com/2015/01/downloading-sources2.pdf). I am not going to spell out the steps this time; I want you to carefully peruse Milligan's presentation, and see if you can follow along (pgs 52-64: he uses wget plus a text file so that wget auto-completes the URLs and scrapes the data found there - much like the final line of the program in exercise 3). There will often be cases where you want to do something, and you find someone's presentations or notes which *almost* tell you everything you need to know. Alternatively, you can complete the tutorial from the [Programming historian](http://programminghistorian.org/lessons/automated-downloading-with-wget) for this exercise. In either case, keep notes on what you've done, what works, where the problems seem to lie, what the tacit knowledge is that isn't made clear (ie, are there assumptions being made in the tutorial or the presentation that are opaque to you?). 
 
